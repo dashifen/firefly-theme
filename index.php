@@ -14,13 +14,14 @@
       <h1 id="page-title">The Firefly House</h1>
     </a>
 
-    <div class="toggler">
-      <a id="toggler" class="screen-reader-text">Click or touch to toggle main menu availability</a>
-      <div class="mid-line"></div>
-    </div>
+    <a id="toggler" href="#">
+      <div class="toggle">
+        <div class="mid-line"></div>
+      </div>
+    </a>
 
-    <nav class="main-menu" aria-label="main menu">
-      <ul>
+    <nav id="main-menu" class="main-menu" aria-label="main menu">
+      <ul class="menu-item-container">
         <li class="menu-item"><a class="menu-item-link" href="/">Home</a></li>
         <li class="menu-item"><a class="menu-item-link" href="/">About</a></li>
         <li class="menu-item"><a class="menu-item-link" href="/">Events</a></li>

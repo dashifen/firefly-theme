@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("document.addEventListener('DOMContentLoaded', () => {\n  const htmlClasses = document.getElementsByTagName('html')[0].classList;\n  htmlClasses.remove('no-js');\n  htmlClasses.add('js');\n});\n\n\n//# sourceURL=webpack:///./assets/scripts/firefly.js?");
+eval("document.addEventListener('DOMContentLoaded', () => {\n  const htmlClasses = document.getElementsByTagName('html')[0].classList;\n  htmlClasses.remove('no-js');\n  htmlClasses.add('js');\n\n  const toggler = document.getElementById('toggler');\n  toggler.addEventListener('click', (event) => {\n    event.preventDefault();\n    event.stopPropagation();\n    toggler.classList.toggle('open');\n  })\n});\n\n\n//# sourceURL=webpack:///./assets/scripts/firefly.js?");
 
 /***/ }),
 

@@ -26,32 +26,38 @@
     }
   }
 
-  .toggler {
-    width: 1rem;
+  .toggle {
+    cursor: pointer;
+    display: inline-block;
+    outline: none;
+    width: calc(4px * 7);
   }
 
-  .toggler:after,
-  .toggler:before,
-  .toggler .mid-line {
+  .toggle:after,
+  .toggle:before,
+  .toggle .mid-line {
     background-color: $gray;
-    border-radius: 3px;
+    border-radius: 4px;
     content: '';
     display: block;
     height: 4px;
     margin: 4px 0;
-    transition: transform ease-in-out 200ms;
+    transition: all 200ms ease-in-out;
   }
 
   .main-menu {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
     position: absolute;
     right: rem(-10px);
     transform: translateX(100%);
     transition: transform ease-in-out 500ms;
     top: 0;
     width: rem(200px);
+  }
+
+  .menu-item-container {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
   }
 
   .menu-item {
@@ -81,22 +87,32 @@
     }
   }
 
-  &.menu-open {
-    .toggler:before {
-      transform: translateY(12px) rotate(135deg);
+  #toggler:active,
+  #toggler:focus,
+  #toggler:hover {
+    .toggle:after,
+    .toggle:before,
+    .toggle .mid-line {
+      background-color: $purple;
+      outline: 0;
+    }
+  }
+
+  #toggler.open {
+    .toggle:after {
+      transform: translateY(-8px) rotate(-135deg);
     }
 
-    .toggler:after {
-      transform: translate(-12px) rotate(-135deg);
+    .toggle:before {
+      transform: translateY(8px) rotate(135deg);
     }
 
-    .toggler .mid-line {
-      transform: scale(0);
+    .toggle .mid-line {
+      transform: scale(0) rotate(360deg);
     }
 
-    .main-menu {
+    & + .main-menu {
       transform: translateX(0%);
     }
-
   }
 }

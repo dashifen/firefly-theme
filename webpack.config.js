@@ -26,13 +26,6 @@ module.exports = (env = {}) => ({
         use: 'vue-loader'
       },
       {
-        test: /\.png$/,
-        use: {
-          loader: 'url-loader',
-          options: { limit: 8192 }
-        }
-      },
-      {
         test: /\.css$/,
         use: [
           {
