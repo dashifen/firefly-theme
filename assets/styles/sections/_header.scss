@@ -1,0 +1,102 @@
+.banner {
+  background: transparent url("images/firefly-glowing.jpg") 0 50% no-repeat;
+  background-size: contain;
+  height: rem(50px);
+  position: relative;
+
+  @include onTablets {
+    height: rem(64px);
+  }
+
+  a {
+    color: $black;
+    text-decoration: none;
+  }
+
+  #page-title {
+    font-family: $serif;
+    font-size: rem(25px);
+    padding-left: rem(60px);
+    padding-top: rem(5px);
+
+    @include onTablets {
+      font-size: rem(35px);
+      padding-left: rem(100px);
+      padding-top: 0;
+    }
+  }
+
+  .toggler {
+    width: 1rem;
+  }
+
+  .toggler:after,
+  .toggler:before,
+  .toggler .mid-line {
+    background-color: $gray;
+    border-radius: 3px;
+    content: '';
+    display: block;
+    height: 4px;
+    margin: 4px 0;
+    transition: transform ease-in-out 200ms;
+  }
+
+  .main-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: rem(-10px);
+    transform: translateX(100%);
+    transition: transform ease-in-out 500ms;
+    top: 0;
+    width: rem(200px);
+  }
+
+  .menu-item {
+    &:first-child .menu-item-link {
+      border-top-left-radius: rem(10px);
+    }
+
+    &:last-child .menu-item-link {
+      border-bottom-left-radius: rem(10px);
+    }
+  }
+
+  .menu-item-link {
+    background-color: $gray;
+    border: 1px solid $gray;
+    color: $yellow;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: $yellow;
+      border-color: $mustard;
+      color: $gray;
+    }
+  }
+
+  &.menu-open {
+    .toggler:before {
+      transform: translateY(12px) rotate(135deg);
+    }
+
+    .toggler:after {
+      transform: translate(-12px) rotate(-135deg);
+    }
+
+    .toggler .mid-line {
+      transform: scale(0);
+    }
+
+    .main-menu {
+      transform: translateX(0%);
+    }
+
+  }
+}

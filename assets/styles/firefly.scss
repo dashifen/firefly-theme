@@ -14,6 +14,8 @@
 // have to be included in rough document order but it's a handy logic to use
 // for us humans even if a browser (probably) doesn't care.
 
+@import "sections/header";
+
 // we include the WordPress styles last so that the styles that it expects
 // will have precedence over other stuff.
 

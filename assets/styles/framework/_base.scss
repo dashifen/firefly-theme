@@ -34,3 +34,11 @@ nav .menu {
   margin: 0;
   padding: 0;
 }
+
+.container {
+  margin: 0 rem(10px);
+
+  @include onTablets {
+    margin: 0 rem(30px);
+  }
+}

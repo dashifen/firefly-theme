@@ -33,7 +33,8 @@ class Theme extends AbstractThemeHandler
    */
   protected function addAssets(): void
   {
-    $this->enqueue('assets/firefly.js');
+    $this->enqueue('//fonts.googleapis.com/css2?family=Kaushan+Script&family=Lato&display=swap');
     $this->enqueue('assets/firefly.css');
-  }
+    $this->enqueue('assets/firefly.js');
+   }
 }
