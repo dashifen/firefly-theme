@@ -26,93 +26,104 @@
     }
   }
 
-  .toggle {
-    cursor: pointer;
-    display: inline-block;
-    outline: none;
-    width: calc(4px * 7);
-  }
-
-  .toggle:after,
-  .toggle:before,
-  .toggle .mid-line {
-    background-color: $gray;
-    border-radius: 4px;
-    content: '';
-    display: block;
-    height: 4px;
-    margin: 4px 0;
-    transition: all 200ms ease-in-out;
-  }
-
   .main-menu {
+    left: -10px;
+    opacity: 0;
     position: absolute;
-    right: rem(-10px);
-    transform: translateX(100%);
-    transition: transform ease-in-out 500ms;
-    top: 0;
+    transform: translateX(-100%);
+    transition-property: opacity, transform, visibility;
+    transition-duration: .5s;
+    visibility: hidden;
     width: rem(200px);
-  }
 
-  .menu-item-container {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .menu-item {
-    &:first-child .menu-item-link {
-      border-top-left-radius: rem(10px);
+    .menu-item-container {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
     }
 
-    &:last-child .menu-item-link {
-      border-bottom-left-radius: rem(10px);
+    .menu-item {
+      &:first-child .menu-item-link {
+        border-top-right-radius: rem(10px);
+      }
+
+      &:last-child .menu-item-link {
+        border-bottom-right-radius: rem(10px);
+      }
+    }
+
+    .menu-item-link {
+      background-color: $gray;
+      border: 1px solid $gray;
+      color: $yellow;
+      display: inline-block;
+      text-align: center;
+      width: 100%;
+
+      &:active,
+      &:focus,
+      &:hover {
+        background-color: $yellow;
+        border-color: $mustard;
+        color: $gray;
+      }
     }
   }
 
-  .menu-item-link {
-    background-color: $gray;
-    border: 1px solid $gray;
-    color: $yellow;
-    display: inline-block;
-    text-align: center;
-    width: 100%;
+  #toggler {
+    background: transparent;
+    border-style: none;
+    padding: 4px 4px 0;
+    position: absolute;
+    top: rem(8px);
+    right: 11px;
 
-    &:active,
-    &:focus,
-    &:hover {
-      background-color: $yellow;
-      border-color: $mustard;
-      color: $gray;
+    .toggle {
+      cursor: pointer;
+      display: inline-block;
+      outline: none;
+      width: calc(4px * 7);
     }
-  }
 
-  #toggler:active,
-  #toggler:focus,
-  #toggler:hover {
     .toggle:after,
     .toggle:before,
     .toggle .mid-line {
-      background-color: $purple;
-      outline: 0;
+      background-color: $gray;
+      border-radius: 4px;
+      content: '';
+      display: block;
+      height: 4px;
+      margin: 4px 0;
+      transition: transform .2s;
+    }
+
+    &:focus {
+      .toggle:after,
+      .toggle:before,
+      .toggle .mid-line {
+        background-color: $purple;
+      }
+    }
+
+    &.open {
+      .toggle:after {
+        transform: translateY(-8px) rotate(-135deg);
+      }
+
+      .toggle:before {
+        transform: translateY(8px) rotate(135deg);
+      }
+
+      .toggle .mid-line {
+        transform: scale(0) rotate(360deg);
+      }
+
+      & + .main-menu {
+        opacity: 1;
+        transform: translateX(0%);
+        visibility: visible;
+      }
     }
   }
 
-  #toggler.open {
-    .toggle:after {
-      transform: translateY(-8px) rotate(-135deg);
-    }
-
-    .toggle:before {
-      transform: translateY(8px) rotate(135deg);
-    }
-
-    .toggle .mid-line {
-      transform: scale(0) rotate(360deg);
-    }
-
-    & + .main-menu {
-      transform: translateX(0%);
-    }
-  }
 }
