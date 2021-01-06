@@ -14,7 +14,7 @@
       <h1 id="page-title">The Firefly House</h1>
     </a>
     
-    <button type="button" id="toggler" title="Toggle Main Menu Display aria-controls="main-menu">
+    <button type="button" id="toggler" title="Toggle Main Menu Display" aria-controls="main-menu">
       <span class="toggle">
         <span class="mid-line"></span>
       </span>
