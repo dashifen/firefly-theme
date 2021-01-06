@@ -14,12 +14,10 @@
       <h1 id="page-title">The Firefly House</h1>
     </a>
     
-    <button type="button" id="toggler" title="Toggle Main Menu Display" aria-controls="main-menu">
-      <span class="toggle">
-        <span class="mid-line"></span>
-      </span>
-    </button>
-
+    <div id="toggle">
+      <menu-toggle></menu-toggle>
+    </div>
+    
     <nav id="main-menu" class="main-menu" aria-label="main menu">
       <ul class="menu-item-container">
         <li class="menu-item"><a class="menu-item-link" href="/">Home</a></li>

@@ -1,14 +1,12 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const toggler = document.getElementById('toggler');
-  const htmlClasses = document.getElementsByTagName('html')[0].classList;
-  const firstMenuItem = document.querySelector("#main-menu .menu-item:first-child");
+import {createApp} from "vue";
+import MenuToggle from "./components/menu-toggle.vue";
 
-  htmlClasses.add('js');
+document.addEventListener('DOMContentLoaded', () => {
+  const htmlClasses = document.getElementsByTagName('html')[0].classList;
   htmlClasses.remove('no-js');
-  toggler.addEventListener('click', (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    toggler.title = toggler.title === "Show Menu" ? "Hide Menu" : "Show Menu";
-    toggler.classList.toggle('open');
-  })
+  htmlClasses.add('js');
+
+  // the following are the initializations of our Vue components.
+
+  createApp(MenuToggle).mount("#toggle");
 });

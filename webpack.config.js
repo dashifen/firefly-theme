@@ -2,16 +2,18 @@ const path = require('path');
 const webpack = require('webpack');
 const { VueLoaderPlugin } = require('vue-loader');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const filename = 'firefly.js';
 
 module.exports = (env = {}) => ({
   mode: env.prod ? 'production' : 'development',
   devtool: env.prod ? 'source-map' : 'eval-cheap-module-source-map',
-  entry: path.resolve(__dirname, './assets/scripts/' + filename),
+  entry: [
+    path.resolve(__dirname, './assets/scripts/firefly.js'),
+    path.resolve(__dirname, './assets/styles/firefly.scss')
+  ],
   watch: !env.prod,
   output: {
     path: path.resolve(__dirname, './assets'),
-    filename: filename,
+    filename: 'firefly.min.js',
     publicPath: '/assets/'
   },
   resolve: {
@@ -26,6 +28,13 @@ module.exports = (env = {}) => ({
         use: 'vue-loader'
       },
       {
+        test: /\.png$/,
+        use: {
+          loader: 'url-loader',
+          options: { limit: 8192 }
+        }
+      },
+      {
         test: /\.css$/,
         use: [
           {
@@ -34,6 +43,29 @@ module.exports = (env = {}) => ({
           'css-loader'
         ]
       },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'firefly.min.css',
+            }
+          },
+          {
+            loader: 'extract-loader'
+          },
+          {
+            loader: 'css-loader?-url'
+          },
+          {
+            loader: 'postcss-loader'
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ]
+      }
     ]
   },
   plugins: [
