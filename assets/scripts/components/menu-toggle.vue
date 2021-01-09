@@ -5,7 +5,7 @@
       title="Toggle Main Menu Display"
       aria-controls="main-menu"
       :class="{ open: open }"
-      @click.prevent="open = !open"
+      @click="clicked"
   >
       <span class="toggle">
         <span class="mid-line"></span>
@@ -16,6 +16,8 @@
 <script>
 // noinspection JSUnusedGlobalSymbols
 
+const body = document.getElementsByTagName('body')[0];
+
 export default {
   name: "menu-toggle",
 
@@ -23,6 +25,17 @@ export default {
     return {
       'open': false
     };
+  },
+
+  methods: {
+    clicked() {
+      this.open = !this.open
+      if (!this.open) {
+        body.classList.remove('menu-open');
+      } else {
+        body.classList.add('menu-open');
+      }
+    }
   }
 };
 </script>

@@ -1,3 +1,7 @@
+.js .no-js-menu-link {
+  display: none;
+}
+
 .banner {
   background: transparent url("images/firefly-glowing.jpg") 0 50% no-repeat;
   background-size: contain;
@@ -30,11 +34,16 @@
     left: -10px;
     opacity: 0;
     position: absolute;
+    top: 0;
     transform: translateX(-100%);
     transition-property: opacity, transform, visibility;
     transition-duration: .5s;
     visibility: hidden;
     width: rem(200px);
+
+    @include onTablets {
+      left: -30px;
+    }
 
     .menu-item-container {
       list-style-type: none;
@@ -66,6 +75,36 @@
         background-color: $yellow;
         border-color: $mustard;
         color: $gray;
+      }
+    }
+
+    .menu-open & {
+      opacity: 1;
+      transform: translateX(0%);
+      visibility: visible;
+    }
+
+    @include onScreens {
+      left: auto;
+      opacity: 1;
+      right: 0;
+      top: 1rem;
+      transition: none;
+      transform: translateX(0%);
+      visibility: visible;
+      width: auto;
+
+      .menu-item {
+        display: inline-block;
+        margin: 0 rem(5px);
+      }
+
+      .menu-item-link {
+        background-color: transparent;
+        border-color: transparent;
+        border-radius: rem(10px);
+        color: $black;
+        padding: 0 rem(5px);
       }
     }
   }
@@ -117,13 +156,10 @@
       .toggle .mid-line {
         transform: scale(0) rotate(360deg);
       }
+    }
 
-      & + .main-menu {
-        opacity: 1;
-        transform: translateX(0%);
-        visibility: visible;
-      }
+    @include onScreens {
+      display: none;
     }
   }
-
 }

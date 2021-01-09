@@ -43,3 +43,16 @@ nav .menu {
     margin: 0 rem(30px);
   }
 }
+
+figure {
+  font-size: 0;
+  margin: 0 rem(-10px);
+
+  @include onScreens {
+    margin: 0 rem(-30px);
+  }
+}
+
+img {
+  max-width: 100%;
+}

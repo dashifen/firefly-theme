@@ -3,10 +3,7 @@ import MenuToggle from "./components/menu-toggle.vue";
 
 document.addEventListener('DOMContentLoaded', () => {
   const htmlClasses = document.getElementsByTagName('html')[0].classList;
+  createApp(MenuToggle).mount('menu-toggle');
   htmlClasses.remove('no-js');
   htmlClasses.add('js');
-
-  // the following are the initializations of our Vue components.
-
-  createApp(MenuToggle).mount("#toggle");
 });
