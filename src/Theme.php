@@ -9,6 +9,8 @@ use Dashifen\WPHandler\Handlers\Themes\AbstractThemeHandler;
 
 class Theme extends AbstractThemeHandler
 {
+  public const SLUG = 'firefly-theme';
+  
   /**
    * initialize
    *
@@ -59,13 +61,13 @@ class Theme extends AbstractThemeHandler
         'footer' => 'Footer Menu',
       ]
     );
-  
+    
     // for twitter and facebook sharing, we need some extra image sizes.  of
     // course, they can't agree on one size for both platforms so that means we
     // need two.  the true flags mean we crop to these exact dimensions.
-  
-    add_image_size( "twImage", 1200, 675, true );
-    add_image_size( "fbImage", 1200, 630, true );
+    
+    add_image_size("twImage", 1200, 675, true);
+    add_image_size("fbImage", 1200, 630, true);
   }
   
   /**
@@ -99,5 +101,10 @@ class Theme extends AbstractThemeHandler
     $loader->addPath($this->getStylesheetDir() . '/assets/twigs/layout/', 'layout');
     $loader->addPath($this->getStylesheetDir() . '/assets/twigs/layout/partials/', 'partials');
     return $loader;
+  }
+  
+  public function version(): string
+  {
+    return wp_get_theme()->get('Version');
   }
 }
