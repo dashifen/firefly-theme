@@ -38,9 +38,14 @@ nav .menu {
 
 .container {
   margin: 0 rem(10px);
+  max-width: 1600px;
 
   @include onTablets {
     margin: 0 rem(30px);
+  }
+
+  @include atFullSize {
+    margin: 0 auto;
   }
 }
 
@@ -48,7 +53,7 @@ figure {
   font-size: 0;
   margin: 0 rem(-10px);
 
-  @include onScreens {
+  @include onTablets {
     margin: 0 rem(-30px);
   }
 }

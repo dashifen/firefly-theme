@@ -1,0 +1,44 @@
+<!doctype html>
+<!--suppress HtmlRequiredLangAttribute -->
+<html class="no-js" {{ function('language_attributes') }}>
+<head>
+  <title>{{ page.title ? page.title ~ " | " : "" }} {{ site.title }}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {{ function('wp_head') }}
+</head>
+<body {{ function('body_class') }}>
+<div class="container">
+  <a href="#content" class="screen-reader-text">Skip to the Content</a>
+  <a href="/" class="no-js-menu-link screen-reader-text">Go to the Main Menu</a>
+  <header id="banner" class="banner" aria-labelledby="page-title">
+    <a href="/">
+      <h1 id="page-title">The Firefly House</h1>
+    </a>
+
+    <menu-toggle></menu-toggle>
+    {% include '@partials/menu.twig' with {
+      'id': 'main-menu',
+      'label': 'main menu',
+      'items': site.menus.main
+    } only %}
+
+    <figure class="banner-graphic" role="presentation">
+      <!--suppress HtmlUnknownTarget -->
+      <img src="{{ site.banner.src }}" alt="{{ site.banner.alt }}">
+    </figure>
+  </header>
+
+  <div class="body">
+    <main id="content" class="main" aria-labelledby="main-title">
+      {% block content %}
+      {% endblock %}
+    </main>
+    <section class="sidebar" aria-label="sidebar"></section>
+    <footer class="footer"></footer>
+  </div>
+</div>
+
+{{ function('wp_footer') }}
+</body>
+</html>

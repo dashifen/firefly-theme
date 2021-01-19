@@ -1,0 +1,9 @@
+<nav id="{{ id }}" class="{{ id }}" aria-label="{{ label }}">
+  <ul class="menu-item-container">
+    {% for item in items %}
+      <li class="menu-item {{ item.classes | join(' ') }}">
+        <a class="menu-item-link" href="{{ item.url }}">{{ item.label }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</nav>

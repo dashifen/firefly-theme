@@ -101,10 +101,17 @@
 
       .menu-item-link {
         background-color: transparent;
-        border-color: transparent;
-        border-radius: rem(10px);
+        border-style: none;
+        border-radius: 0 !important; /* overrides :last-child specification above */
         color: $black;
         padding: 0 rem(5px);
+
+        &:active,
+        &:focus,
+        &:hover {
+          background-color: transparent;
+          border-bottom: 4px solid $mustard;
+        }
       }
     }
   }
@@ -160,6 +167,41 @@
 
     @include onScreens {
       display: none;
+    }
+  }
+
+  .banner-graphic {
+    img {
+      max-height: 500px;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    @include atFullSize {
+      position: relative;
+
+      &:before {
+        background: linear-gradient(180deg, rgba(70,70,70,1) 50%, rgba(66,66,66,1) 100%);
+        content: " ";
+        display: inline-block;
+        height: 100%;
+        left: -10000px;
+        position: absolute;
+        top: 0;
+        width: 10000px;
+      }
+
+      &:after {
+        background: linear-gradient(180deg, rgba(37,37,37,1) 0%, rgba(25,26,28,1) 100%);
+        content: " ";
+        display: inline-block;
+        height: 100%;
+        left: 100%;
+        position: absolute;
+        top: 0;
+        width: 10000px;
+        z-index: 100;
+      }
     }
   }
 }
