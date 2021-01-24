@@ -35,18 +35,18 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
   public function __construct()
   {
     $this->postId = get_the_ID();
-  
+    
     try {
       parent::__construct(
         $this->getTwig(),
         $this->getContext()
       );
     } catch (TemplateException $e) {
-    
+      
       // to make try/catch blocks easier external to this scope, we'll convert
       // our vanilla TemplateException into a FireflyTemplateException here
       // and then simply re-throw it.
-    
+      
       throw new FireflyTemplateException(
         $e->getMessage(),
         $e->getCode(),
@@ -182,7 +182,7 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
     // context is built within this object so that it's available to all
     // templates.  the getTemplateContext method is left abstract so the
     // extensions of this object must define it.
-  
+    
     return array_merge(
       $this->getDefaultContext(),
       $this->getTemplateContext()
@@ -204,6 +204,10 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
       'site' => [
         'url'    => home_url(),
         'title'  => 'The Firefly House',
+        'logo'   => [
+          'src' => get_stylesheet_directory_uri() . '/assets/images/firefly-glowing.jpg',
+          'alt' => 'a firefly drawn as a single, unending line with a glowing, seven-pointed star on it\'s abdomen',
+        ],
         'banner' => [
           'src' => get_stylesheet_directory_uri() . '/assets/images/elements.jpg',
           'alt' => 'a stylistic image depicting the four classical Western elements:  earth, air, fire, and water',
@@ -321,6 +325,20 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
     }
     
     return $compilation;
+  }
+  
+  /**
+   * getContent
+   *
+   * Returns the filtered content for use on-screen as a convenience to this
+   * object's extensions to avoid having to write and re-write this line of
+   * code over and over again.
+   *
+   * @return string
+   */
+  protected function getContent(): string
+  {
+    return apply_filters('the_content', get_post($this->postId)->post_content);
   }
   
   /**

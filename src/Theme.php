@@ -98,13 +98,12 @@ class Theme extends AbstractThemeHandler
    */
   protected function addTimberNamespaces(FilesystemLoader $loader): FilesystemLoader
   {
+    // honestly, this is a little extra, but if we reorganize the twig folder,
+    // having the includes namespaced like this will help avoid the need to
+    // re-write the actual contents of those folders.
+    
     $loader->addPath($this->getStylesheetDir() . '/assets/twigs/layout/', 'layout');
     $loader->addPath($this->getStylesheetDir() . '/assets/twigs/layout/partials/', 'partials');
     return $loader;
-  }
-  
-  public function version(): string
-  {
-    return wp_get_theme()->get('Version');
   }
 }

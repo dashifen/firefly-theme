@@ -3,13 +3,18 @@
 }
 
 .banner {
-  background: transparent url("images/firefly-glowing.jpg") 0 50% no-repeat;
-  background-size: contain;
-  height: rem(50px);
   position: relative;
 
-  @include onTablets {
-    height: rem(64px);
+  .logo {
+    float: left;
+    height: rem(50px);
+    width: rem(50px);
+
+    @include onTablets {
+      height: rem(80px);
+      margin-top: rem(-10px);
+      width: rem(80px);
+    }
   }
 
   a {
@@ -88,7 +93,7 @@
       left: auto;
       opacity: 1;
       right: 0;
-      top: 1rem;
+      top: rem(20px);
       transition: none;
       transform: translateX(0%);
       visibility: visible;
@@ -121,8 +126,8 @@
     border-style: none;
     padding: 4px 4px 0;
     position: absolute;
-    top: rem(8px);
-    right: 11px;
+    right: rem(8px);
+    top: rem(10px);
 
     .toggle {
       cursor: pointer;
@@ -163,6 +168,11 @@
       .toggle .mid-line {
         transform: scale(0) rotate(360deg);
       }
+    }
+
+    @include onTablets {
+      right: rem(15px);
+      top: rem(15px);
     }
 
     @include onScreens {

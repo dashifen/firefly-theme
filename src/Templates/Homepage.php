@@ -17,9 +17,9 @@ class Homepage extends AbstractFireflyTemplate
   protected function getTemplateContext(): array
   {
     return [
-      'page' => [
+      'post' => [
         'title' => 'Home',
-        'content' => 'Hello, World!',
+        'content' => $this->getContent(),
       ],
     ];
   }
