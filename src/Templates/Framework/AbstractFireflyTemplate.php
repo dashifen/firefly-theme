@@ -213,7 +213,8 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
           'alt' => 'a stylistic image depicting the four classical Western elements:  earth, air, fire, and water',
         ],
         'menus'  => [
-          'main' => $this->getMainMenu(),
+          'main'   => $this->getMainMenu(),
+          'footer' => $this->getFooterMenu(),
         ],
       ],
     ];
@@ -222,12 +223,28 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
   /**
    * getMainMenu
    *
-   * Returns an array of
+   * Returns the MenuItems for the main menu.
    *
-   * @return array
+   * @return MenuItem[]
    * @throws RepositoryException
    */
   private function getMainMenu(): array
+  {
+    return $this->getMenu('main');
+  }
+  
+  /**
+   * getMenu
+   *
+   * Returns an array of MenuItems for the items in the menu at the
+   * specified location.
+   *
+   * @param string $menuLocation
+   *
+   * @return MenuItem[]
+   * @throws RepositoryException
+   */
+  private function getMenu(string $menuLocation): array
   {
     // Timber can give us a set of menu items, but they contain a massive
     // amount of data that we don't actually need to build our site.  so, we
@@ -238,8 +255,81 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
     
     return array_map(
       fn(TimberMenuItem $item) => new MenuItem($item),
-      (new TimberMenu('main'))->get_items()
+      (new TimberMenu($menuLocation))->get_items()
     );
+  }
+  
+  /**
+   * getFooterMenu
+   *
+   * Returns the MenuItems for the footer menu.
+   *
+   * @return MenuItem[]
+   * @throws RepositoryException
+   */
+  private function getFooterMenu(): array
+  {
+    $menu = $this->getMenu('footer');
+    
+    // now, to this menu, we want to add one or two more items.  if the
+    // current visitor is logged out, we add a log in menu.  if they're logged
+    // in, we'll add links to the dashboard and to log out.
+    
+    $additionalItems = !is_user_logged_in()
+      ? $this->getLoggedOutLinks()
+      : $this->getLoggedInLinks();
+    
+    foreach ($additionalItems as $item) {
+      $menu[] = new MenuItem((object) $item);
+    }
+    
+    return $menu;
+  }
+  
+  /**
+   * getLoggedOutLinks
+   *
+   * Returns an array of arrays that describe the menu items we add to the
+   * footer menu when a person is logged out.
+   *
+   * @return array
+   */
+  private function getLoggedOutLinks(): array
+  {
+    return [
+      [
+        'label'   => 'Log In',
+        'url'     => wp_login_url(),
+        'classes' => ['log-in'],
+        'current' => false,
+      ],
+    ];
+  }
+  
+  /**
+   * getLoggedInLinks
+   *
+   * Returns an array of arrays that describe the links we want to add to the
+   * footer menu when the visitor is already logged in.
+   *
+   * @return array
+   */
+  private function getLoggedInLinks(): array
+  {
+    return [
+      [
+        'label'   => 'Dashboard',
+        'url'     => admin_url(),
+        'classes' => ['dashboard'],
+        'current' => false,
+      ],
+      [
+        'label'   => 'Log Out',
+        'url'     => wp_logout_url(),
+        'classes' => ['log-out'],
+        'current' => false,
+      ],
+    ];
   }
   
   /**

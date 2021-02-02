@@ -4,7 +4,6 @@ namespace Dashifen\FireflyTheme\Repositories;
 
 use Dashifen\Repository\Repository;
 use Timber\MenuItem as TimberMenuItem;
-use Dashifen\Repository\RepositoryException;
 
 class MenuItem extends Repository
 {
@@ -13,16 +12,23 @@ class MenuItem extends Repository
   protected string $label;
   protected string $url;
   
-  public function __construct(TimberMenuItem $item)
+  public function __construct(object $item)
   {
-    parent::__construct(
-      [
-        'classes' => array_filter($item->classes),
-        'current' => $item->current || $item->current_item_ancestor || $item->current_item_parent,
-        'label'   => $item->name(),
-        'url'     => $item->url,
-      ]
-    );
+    $data = $item instanceof TimberMenuItem
+      ? $this->extractFromTimberMenuItem($item)
+      : (array) $item;
+    
+    parent::__construct($data);
+  }
+  
+  private function extractFromTimberMenuItem(TimberMenuItem $item)
+  {
+    return [
+      'classes' => array_filter($item->classes),
+      'current' => $item->current || $item->current_item_ancestor || $item->current_item_parent,
+      'label'   => $item->name(),
+      'url'     => $item->url,
+    ];
   }
   
   /**

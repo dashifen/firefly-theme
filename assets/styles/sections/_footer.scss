@@ -1,0 +1,18 @@
+.footer {
+  border-top: 1px solid;
+  border-image: linear-gradient(90deg, black, white 45%, white 55%, black 100%) 1;
+  font-size: 85%;
+  margin-top: 3rem;
+  position: relative;
+
+  &:before {
+    background: url('images/firefly.jpg') 0 0 no-repeat;
+    background-size: contain;
+    content: ' ';
+    left: calc(50% - 20px);
+    height: 40px;
+    position: absolute;
+    top: -20px;
+    width: 40px;
+  }
+}

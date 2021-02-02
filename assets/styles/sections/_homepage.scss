@@ -1,0 +1,31 @@
+body.home {
+  .body {
+    position: relative;
+    z-index: 10;
+  }
+
+  .wp-block-dashifen-deck {
+    display: flex;
+    gap: rem(10px);
+    margin-bottom: 3rem;
+    margin-top: rem(-54px);
+  }
+
+  .wp-block-dashifen-card {
+    background-color: lighten($yellow, 20%);
+    border: rem(1px) solid $black;
+    border-radius: rem(4px);
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    padding: rem(10px);
+    text-align: center;
+
+    .heading {
+      flex-grow: 1;
+      font-family: $serif;
+    }
+  }
+
+
+}

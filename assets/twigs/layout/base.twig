@@ -36,8 +36,18 @@
       {% endblock %}
     </main>
     <section class="sidebar" aria-label="sidebar"></section>
-    <footer class="footer"></footer>
   </div>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; {{ year }} The Firefly House</p>
+    </div>
+    {% include '@partials/menu.twig' with {
+      'id': 'footer-menu',
+      'label': 'footer menu',
+      'items': site.menus.footer
+    } only %}
+  </footer>
 </div>
 
 {{ function('wp_footer') }}
