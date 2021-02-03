@@ -200,8 +200,8 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
   private function getDefaultContext(): array
   {
     return [
-      'year' => date('Y'),
-      'site' => [
+      'year'    => date('Y'),
+      'site'    => [
         'url'    => home_url(),
         'title'  => 'The Firefly House',
         'logo'   => [
@@ -216,6 +216,11 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
           'main'   => $this->getMainMenu(),
           'footer' => $this->getFooterMenu(),
         ],
+      ],
+      'discord' => [
+        'logo'   => get_stylesheet_directory_uri() . '/assets/images/discord.svg',
+        'online' => $this->getDiscordMembersOnline(),
+        'invite' => 'prRN88MWt2',
       ],
     ];
   }
@@ -330,6 +335,25 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
         'current' => false,
       ],
     ];
+  }
+  
+  /**
+   * getDiscordMembersOnline
+   *
+   * Hits the Discord widget API for the firefly house server to see how
+   * many folks are online, though not who they are.
+   *
+   * @return int|null
+   */
+  private function getDiscordMembersOnline(): ?int
+  {
+    $response = wp_remote_get('https://discord.com/api/guilds/326771162548011021/widget.json');
+    if (wp_remote_retrieve_response_code($response) === 200) {
+      $response = json_decode(wp_remote_retrieve_body($response));
+      return (int) $response->presence_count;
+    }
+    
+    return null;
   }
   
   /**
