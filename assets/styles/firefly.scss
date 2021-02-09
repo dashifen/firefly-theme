@@ -7,7 +7,7 @@
 // baseline styles.
 
 @import "../../node_modules/normalize.css/normalize";
-@import "framework/base";
+@import "base";
 
 // the following are the imports that define the sections of our site.  each is
 // named to try and help identify the part of it that it controls.  they don't
@@ -16,6 +16,7 @@
 
 @import "sections/header";
 @import "sections/homepage";
+@import "sections/main";
 
 
 @import "sections/footer";

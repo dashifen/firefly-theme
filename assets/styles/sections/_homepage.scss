@@ -1,31 +1,35 @@
 body.home {
-  .body {
-    position: relative;
-    z-index: 10;
+  .homepage.body {
+    display: grid;
   }
 
   .wp-block-dashifen-deck {
     display: flex;
+    flex-direction: column;
     gap: rem(10px);
-    margin-bottom: 3rem;
-    margin-top: rem(-54px);
+    grid-row: 2 / 3;
+
+
   }
 
-  .wp-block-dashifen-card {
-    background-color: lighten($yellow, 20%);
-    border: rem(1px) solid $black;
-    border-radius: rem(4px);
-    display: flex;
-    flex: 1 1 0;
-    flex-direction: column;
-    padding: rem(10px);
-    text-align: center;
+  .post-body {
+    grid-row: 1 / 2;
+  }
 
-    .heading {
-      flex-grow: 1;
-      font-family: $serif;
+  .events {
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    h4 {
+      font-family: $sanSerif;
+      margin-bottom: 0;
+    }
+
+    p {
+      margin-top: 0;
     }
   }
-
-
 }

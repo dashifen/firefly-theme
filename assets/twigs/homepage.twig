@@ -5,7 +5,30 @@
     <h2 id="main-title" class="screen-reader-text">Welcome to the Firefly House</h2>
   </header>
 
-  <div class="body">
+  <div class="homepage body">
     {{ post.content }}
+
+    {% if events %}
+      <div class="events">
+        <header>
+          <h3 id="sidebar-title">Upcoming Events</h3>
+        </header>
+
+        <ul>
+          {% for event in events %}
+            <li class="event">
+              <a href="{{ event.link }}">
+                <h4>{{ event.name }}</h4>
+              </a>
+              <time datetime="{{ event.datetime }}">
+                {{ event.date }} at {{ event.time }}
+              </time>
+              {{ event.excerpt }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
   </div>
 {% endblock %}

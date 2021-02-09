@@ -27,6 +27,7 @@ class Theme extends AbstractThemeHandler
       $this->addAction('after_setup_theme', 'addThemeFeatures');
       $this->addFilter('timber/locations', 'addTwigLocation');
       $this->addFilter('timber/loader/loader', 'addTimberNamespaces');
+      $this->addFilter('dashifen-card-heading-classes', 'addCardHeadingClasses');
     }
   }
   
@@ -105,5 +106,21 @@ class Theme extends AbstractThemeHandler
     $loader->addPath($this->getStylesheetDir() . '/assets/twigs/layout/', 'layout');
     $loader->addPath($this->getStylesheetDir() . '/assets/twigs/layout/partials/', 'partials');
     return $loader;
+  }
+  
+  /**
+   * addCardHeadingClasses
+   *
+   * Adds the 'h1' class to the list and returns it.  Allows the theme to
+   * homogenize the #page-title and the card headings for font and size.
+   *
+   * @param array $classes
+   *
+   * @return array
+   */
+  protected function addCardHeadingClasses(array $classes): array
+  {
+    $classes[] = 'h1';
+    return $classes;
   }
 }

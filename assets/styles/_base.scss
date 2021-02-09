@@ -21,8 +21,12 @@ a {
 }
 
 body {
-  font: normal 112.5%/1.6 $sanSerif; // usually 20px
+  font: normal 100%/1.6 $sanSerif;
   overflow-x: hidden;
+
+  @include onTablets {
+    font-size: 112.5%;
+  }
 
   /*&.admin-bar {
     margin-top: -32px;
@@ -59,4 +63,17 @@ figure {
 
 img {
   max-width: 100%;
+}
+
+.h1 {
+  font-family: $serif;
+  font-size: rem(25px);
+
+  @include onTablets {
+    font-size: rem(35px);
+  }
+}
+
+h1, h2, h3, h4 {
+  font-family: $serif;
 }

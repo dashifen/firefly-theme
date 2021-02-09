@@ -14,7 +14,7 @@
   <header id="banner" class="banner" aria-labelledby="page-title">
     <a href="{{ site.url }}">
       <img src="{{ site.logo.src }}" alt="{{ site.logo.alt }}" class="logo">
-      <h1 id="page-title">The Firefly House</h1>
+      <h1 id="page-title" class="h1">The Firefly House</h1>
     </a>
 
     <menu-toggle></menu-toggle>
@@ -30,12 +30,15 @@
     </figure>
   </header>
 
-  <div class="body">
+  <div id="body">
     <main id="content" class="main" aria-labelledby="main-title">
       {% block content %}
       {% endblock %}
     </main>
-    <section class="sidebar" aria-label="sidebar"></section>
+    <section class="sidebar" aria-label="sidebar">
+      {% block sidebar %}
+      {% endblock %}
+    </section>
   </div>
 
   <footer class="footer">

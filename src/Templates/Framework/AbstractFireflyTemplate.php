@@ -12,6 +12,7 @@ use Timber\MenuItem as TimberMenuItem;
 use Dashifen\WPTemplates\AbstractTemplate;
 use Dashifen\WPTemplates\TemplateException;
 use Dashifen\Repository\RepositoryException;
+use Dashifen\FireflyTheme\Repositories\Event;
 use Dashifen\Transformer\TransformerException;
 use Dashifen\FireflyTheme\Repositories\MenuItem;
 use Dashifen\WPHandler\Handlers\HandlerException;
@@ -173,7 +174,9 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
    * Returns an array representing the template context for this response.
    *
    * @return array
+   * @throws HandlerException
    * @throws RepositoryException
+   * @throws TransformerException
    */
   private function getContext(): array
   {
@@ -195,7 +198,9 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
    * Returns an array of data that's used throughout the site.
    *
    * @return array
+   * @throws HandlerException
    * @throws RepositoryException
+   * @throws TransformerException
    */
   private function getDefaultContext(): array
   {
@@ -222,6 +227,7 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
         'online' => $this->getDiscordMembersOnline(),
         'invite' => 'prRN88MWt2',
       ],
+      'events'  => $this->getMeetupEvents(),
     ];
   }
   
@@ -350,10 +356,59 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
     $response = wp_remote_get('https://discord.com/api/guilds/326771162548011021/widget.json');
     if (wp_remote_retrieve_response_code($response) === 200) {
       $response = json_decode(wp_remote_retrieve_body($response));
-      return (int) $response->presence_count;
+      
+      // the -1 is for Carl, the bot.  if we add more bots, we'll want to
+      // update this alteration to match that count.
+      
+      return (int) $response->presence_count - 1;
     }
     
     return null;
+  }
+  
+  /**
+   * getMeetupEvents
+   *
+   * Hits the Meetup API and checks for Firefly House events.
+   *
+   * @return Event[]
+   * @throws HandlerException
+   * @throws TransformerException
+   * @throws RepositoryException
+   */
+  private function getMeetupEvents(): array
+  {
+    $events = get_transient('firefly-events');
+    
+    if (!is_array($events)) {
+      $response = wp_remote_get('https://api.meetup.com/thefireflyhouse/events?page=20');
+      if (wp_remote_retrieve_response_code($response) === 200) {
+        
+        // if we got a response from the Meetup API, then we'll extract the
+        // JSON body from it and save it in the database.  this is to help
+        // avoid a situation where we have no events to show because the API
+        // was down or something.
+        
+        $eventJson = wp_remote_retrieve_body($response);
+        $this->updateOption('events-json', $eventJson);
+      } else {
+        
+        // otherwise, we'll get whatever we got last time or an empty array
+        // as a JSON string.  it's important that we return the string and not
+        // the array itself because the json_decode() call will have a problem
+        // if it's not a string.
+        
+        $eventJson = $this->getOption('event-json', '[]');
+      }
+      
+      foreach (json_decode($eventJson, true) as $event) {
+        $events[] = new Event($event);
+      }
+      
+      set_transient('firefly-events', $events, 3600);
+    }
+  
+    return $events;
   }
   
   /**
@@ -468,7 +523,7 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
    */
   final protected function getOptionNames(): array
   {
-    return ['version', 'twigs'];
+    return ['version', 'twigs', 'events-json'];
   }
   
   /**

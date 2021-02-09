@@ -23,17 +23,16 @@
   }
 
   #page-title {
-    font-family: $serif;
-    font-size: rem(25px);
     padding-left: rem(60px);
     padding-top: rem(5px);
 
     @include onTablets {
-      font-size: rem(35px);
       padding-left: rem(100px);
       padding-top: 0;
     }
   }
+
+
 
   .main-menu {
     left: -10px;
@@ -44,7 +43,8 @@
     transition-property: opacity, transform, visibility;
     transition-duration: .5s;
     visibility: hidden;
-    width: rem(200px);
+    width: rem(300px);
+    z-index: 100;
 
     @include onTablets {
       left: -30px;
@@ -71,6 +71,7 @@
       border: 1px solid $gray;
       color: $yellow;
       display: inline-block;
+      padding: .25rem 0;
       text-align: center;
       width: 100%;
 
@@ -127,7 +128,7 @@
     padding: 4px 4px 0;
     position: absolute;
     right: rem(8px);
-    top: rem(10px);
+    top: rem(2px);
 
     .toggle {
       cursor: pointer;
