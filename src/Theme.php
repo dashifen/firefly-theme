@@ -27,6 +27,7 @@ class Theme extends AbstractThemeHandler
       $this->addAction('after_setup_theme', 'addThemeFeatures');
       $this->addFilter('timber/locations', 'addTwigLocation');
       $this->addFilter('timber/loader/loader', 'addTimberNamespaces');
+      $this->addFilter('abbreviator-watched-files', 'addAbbrWatchedFiles');
       $this->addFilter('dashifen-card-heading-classes', 'addCardHeadingClasses');
     }
   }
@@ -106,6 +107,26 @@ class Theme extends AbstractThemeHandler
     $loader->addPath($this->getStylesheetDir() . '/assets/twigs/layout/', 'layout');
     $loader->addPath($this->getStylesheetDir() . '/assets/twigs/layout/partials/', 'partials');
     return $loader;
+  }
+  
+  /**
+   * addAbbrWatchedFiles
+   *
+   * Adds this theme's built CSS to the files that are watched to trigger a
+   * recheck on each page's abbreviations.
+   *
+   * @param array $files
+   *
+   * @return array
+   */
+  protected function addAbbrWatchedFiles(array $files): array
+  {
+    // we put our file first since it's the one that's most likely to have
+    // changed.  that way, we should short circuit the file checks as fast as
+    // possible.
+    
+    array_unshift($files, $this->stylesheetDir . '/assets/firefly.min.css');
+    return $files;
   }
   
   /**

@@ -51,9 +51,13 @@
     }
 
     .menu-item-container {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
+      background: linear-gradient(180deg, rgba(37,37,37,1) 0%, rgba(25,26,28,1) 100%);
+      border-bottom-right-radius: rem(10px);
+      border-top-right-radius: rem(10px);
+
+      @include onScreens {
+        background: transparent;
+      }
     }
 
     .menu-item {
@@ -67,8 +71,8 @@
     }
 
     .menu-item-link {
-      background-color: $gray;
-      border: 1px solid $gray;
+      background-color: transparent;
+      border: 1px solid transparent;
       color: $yellow;
       display: inline-block;
       padding: .25rem 0;

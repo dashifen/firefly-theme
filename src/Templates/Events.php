@@ -2,11 +2,25 @@
 
 namespace Dashifen\FireflyTheme\Templates;
 
-use WP_Post;
+use Timber\Timber;
 use Dashifen\FireflyTheme\Templates\Framework\AbstractFireflyTemplate;
 
-class Homepage extends AbstractFireflyTemplate
+class Events extends AbstractFireflyTemplate
 {
+  private array $siteContext;
+  
+  /**
+   * getTemplateTwig
+   *
+   * Returns the name of this template's twig file.
+   *
+   * @return string
+   */
+  protected function getTemplateTwig(): string
+  {
+    return 'page.twig';
+  }
+  
   /**
    * getTemplateContext
    *
@@ -19,9 +33,15 @@ class Homepage extends AbstractFireflyTemplate
    */
   protected function getPageContext(array $siteContext): array
   {
+    // we can't change the signature of the get content method to pass it the
+    // site context, but we can set it to a private property of this object and
+    // then use it in the method below.
+    
+    $this->siteContext = $siteContext;
+    
     return [
       'post' => [
-        'title' => 'Home',
+        'title'   => get_the_title(),
         'content' => $this->getContent(),
       ],
     ];
@@ -39,25 +59,9 @@ class Homepage extends AbstractFireflyTemplate
   protected function getContent(): string
   {
     $content = parent::getContent();
-    
-    // we want to surround the main content of our post in a div so that our
-    // grid works the way we want it to.  we'll find the <h2> that starts that
-    // post content, and add a div before it.  then, we add the closing tag
-    // at the end to fully enclose it all.
-    
-    return str_replace('<h2>', '<div class="post-body"><h2>', $content) . '</div>';
+    $events = Timber::compile('@partials/events.twig', $this->siteContext);
+    return $content . $events;
   }
   
   
-  /**
-   * getTemplateTwig
-   *
-   * Returns the name of this template's twig file.
-   *
-   * @return string
-   */
-  protected function getTemplateTwig(): string
-  {
-    return 'homepage.twig';
-  }
 }

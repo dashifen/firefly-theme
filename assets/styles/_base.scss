@@ -21,7 +21,7 @@ a {
 }
 
 body {
-  font: normal 100%/1.6 $sanSerif;
+  font: normal 100%/1.6 $sansSerif;
   overflow-x: hidden;
 
   @include onTablets {
@@ -76,4 +76,14 @@ img {
 
 h1, h2, h3, h4 {
   font-family: $serif;
+
+  &.sans-serif {
+    font-family: $sansSerif;
+  }
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }

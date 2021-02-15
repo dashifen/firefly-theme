@@ -186,14 +186,13 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
     // templates.  the getTemplateContext method is left abstract so the
     // extensions of this object must define it.
     
-    return array_merge(
-      $this->getDefaultContext(),
-      $this->getTemplateContext()
-    );
+    $siteContext = $this->getSiteContext();
+    $templateContext = $this->getPageContext($siteContext);
+    return array_merge($siteContext, $templateContext);
   }
   
   /**
-   * getDefaultContext
+   * getSiteContext
    *
    * Returns an array of data that's used throughout the site.
    *
@@ -202,7 +201,7 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
    * @throws RepositoryException
    * @throws TransformerException
    */
-  private function getDefaultContext(): array
+  private function getSiteContext(): array
   {
     return [
       'year'    => date('Y'),
@@ -417,9 +416,11 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
    * Returns an array containing data for this template's context that is
    * merged with the default data to form the context for the entire request.
    *
+   * @param array $siteContext
+   *
    * @return array
    */
-  abstract protected function getTemplateContext(): array;
+  abstract protected function getPageContext(array $siteContext): array;
   
   /**
    * render

@@ -1,0 +1,28 @@
+<div class="events">
+  {% if post.title == 'Home' %}
+    <header>
+      <h3 id="sidebar-title">Upcoming Events</h3>
+    </header>
+  {% endif %}
+
+  <ul>
+    {% for event in events %}
+      <li class="event">
+        <a href="{{ event.link }}">
+          {% if post.title == 'Home' %}
+            <h4>{{ event.name }}</h4>
+          {% else %}
+            <h3 class="sans-serif">{{ event.name }}</h3>
+          {% endif %}
+        </a>
+        <time datetime="{{ event.datetime }}">
+          {{ event.date }} at {{ event.time }}
+        </time>
+
+        {% if post.title != 'Home' %}
+          {{ event.excerpt }}
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</div>

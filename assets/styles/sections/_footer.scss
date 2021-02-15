@@ -4,6 +4,7 @@
   font-size: 85%;
   margin-top: 3rem;
   position: relative;
+  text-align: center;
 
   &:before {
     background: url('images/firefly.jpg') 0 0 no-repeat;
@@ -19,11 +20,55 @@
   .discord {
     align-items: center;
     display: flex;
+    justify-content: center;
 
     img {
       height: 2rem;
       position: relative;
       top: 0.125rem;
+    }
+  }
+
+  .menu-item-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .menu-item {
+    padding: 0 rem(30px);
+    text-align: center;
+  }
+
+  @include onScreens {
+    padding-top: 3rem;
+    text-align: left;
+
+    .footer-container {
+      display: flex;
+      flex: 1 1 0;
+      flex-direction: row;
+    }
+
+    .footer-content {
+      flex-grow: 1;
+      min-width: 38.2%;
+
+      & > *:first-child {
+        margin-top: 0;
+      }
+    }
+
+    .discord {
+      justify-content: left;
+    }
+
+    .menu-item-container {
+      justify-content: right;
+    }
+
+    .menu-item {
+      padding: 0 0 0 rem(30px);
     }
   }
 }
