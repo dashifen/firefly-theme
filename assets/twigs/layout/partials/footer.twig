@@ -1,0 +1,30 @@
+</main>
+</div>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <p>&copy; {{ year }} The Firefly House</p>
+
+      <p>
+        <a href="https://discord.gg/{{ discord.invite }}" class="discord">
+          {% if discord.online > 0 %}
+            Join {{ discord.online }} of us on <img src="{{ discord.logo }}" alt="discord">
+          {% else %}
+            Join our <img src="{{ discord.logo }}" alt="discord">
+          {% endif %}
+        </a>
+      </p>
+    </div>
+    {% include '@partials/menu.twig' with {
+      'id': 'footer-menu',
+      'label': 'footer menu',
+      'items': site.menus.footer
+    } only %}
+  </div>
+</footer>
+</div>
+
+{{ function('wp_footer') }}
+</body>
+</html>
