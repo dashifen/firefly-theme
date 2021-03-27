@@ -263,10 +263,9 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
     // there's no need to specify types for short closures, but this time we
     // wanted to be as clear as possible about what was going on here.
     
-    return array_map(
-      fn(TimberMenuItem $item) => new MenuItem($item),
-      (new TimberMenu($menuLocation))->get_items()
-    );
+    return sizeof(($items = (new TimberMenu($menuLocation))->get_items())) > 0
+      ? array_map(fn(TimberMenuItem $item) => new MenuItem($item), $items)
+      : [];
   }
   
   /**
