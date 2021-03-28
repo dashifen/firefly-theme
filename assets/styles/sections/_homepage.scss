@@ -45,10 +45,6 @@ body.home {
   .post-body {
     grid-row: 1 / 2;
 
-    @include onTablets {
-      grid-row: 2 / 3;
-    }
-
     @include onScreens {
       grid-column: 1 / 2;
       padding-right: 1.5rem;

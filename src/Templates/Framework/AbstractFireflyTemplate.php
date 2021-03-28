@@ -2,6 +2,7 @@
 
 namespace Dashifen\FireflyTheme\Templates\Framework;
 
+use WP_Post;
 use Timber\Timber;
 use RegexIterator;
 use Timber\Menu as TimberMenu;
@@ -208,13 +209,14 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
       'site'    => [
         'url'    => home_url(),
         'title'  => 'The Firefly House',
+        'images' => get_stylesheet_directory_uri() . '/assets/images/',
         'logo'   => [
-          'src' => get_stylesheet_directory_uri() . '/assets/images/firefly-glowing.jpg',
           'alt' => 'a firefly drawn as a single, unending line with a glowing, seven-pointed star on it\'s abdomen',
+          'src' => 'firefly-glowing.jpg',
         ],
         'banner' => [
-          'src' => get_stylesheet_directory_uri() . '/assets/images/elements.jpg',
           'alt' => 'a stylistic image depicting the four classical Western elements:  earth, air, fire, and water',
+          'src' => 'elements.jpg',
         ],
         'menus'  => [
           'main'   => $this->getMainMenu(),
@@ -507,7 +509,9 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
    */
   protected function getContent(): string
   {
-    return apply_filters('the_content', get_post($this->postId)->post_content);
+    return ($post = get_post($this->postId)) instanceof WP_Post
+      ? apply_filters('the_content', $post->post_content)
+      : '';
   }
   
   /**

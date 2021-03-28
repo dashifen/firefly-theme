@@ -1,0 +1,33 @@
+<table class="calendar">
+  <caption class="abbreviated">{{ month }} {{ function('date', 'Y') }}</caption>
+  <thead>
+  <tr>
+    {% for day in days %}
+      <th scope="col" class="abbreviated" id="{{ day | striptags | lower }}">{{ day }}</th>
+    {% endfor %}
+  </tr>
+  </thead>
+  <tbody>
+  {% set current = 0 %}
+  {% for week in 1..weeks %}
+    <tr>
+      {% for i in 0..6 %}
+        <td headers="{{ days[i] | striptags | lower }}">
+          {% if current < end and ((week == 1 and i >= start) or week != 1) %}
+            {% set current = current + 1 %}
+            <span class="day">{{ current }}</span>
+            {% if current in events | keys %}
+              <a href="#{{ function('sanitize_title', events[current]) }}">
+                <img src="{{ image }}" alt="{{ events[current] }}" title="{{ events[current] }}">
+              </a>
+            {% endif %}
+          {% else %}
+            <span class="overlay"></span>
+          {% endif %}
+        </td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+

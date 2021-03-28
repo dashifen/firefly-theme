@@ -13,7 +13,7 @@
   <a href="/" class="no-js-menu-link screen-reader-text">Go to the Main Menu</a>
   <header id="banner" class="banner" aria-labelledby="page-title">
     <a href="{{ site.url }}">
-      <img src="{{ site.logo.src }}" alt="{{ site.logo.alt }}" class="logo">
+      <img src="{{ site.images ~ site.logo.src }}" alt="{{ site.logo.alt }}" class="logo">
       {% if post.title == 'Home' %}
         <h1 id="page-title" class="h1">The Firefly House</h1>
       {% else %}
@@ -30,7 +30,7 @@
 
     <figure class="banner-graphic" role="presentation">
       <!--suppress HtmlUnknownTarget -->
-      <img src="{{ site.banner.src }}" alt="{{ site.banner.alt }}">
+      <img src="{{ site.images ~ site.banner.src }}" alt="{{ site.banner.alt }}">
     </figure>
   </header>
 
