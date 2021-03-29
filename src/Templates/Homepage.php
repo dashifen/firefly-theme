@@ -2,7 +2,6 @@
 
 namespace Dashifen\FireflyTheme\Templates;
 
-use WP_Post;
 use Dashifen\FireflyTheme\Templates\Framework\AbstractFireflyTemplate;
 
 class Homepage extends AbstractFireflyTemplate
@@ -21,7 +20,7 @@ class Homepage extends AbstractFireflyTemplate
   {
     return [
       'post' => [
-        'title' => 'Home',
+        'title'   => 'Home',
         'content' => $this->getContent(),
       ],
     ];
