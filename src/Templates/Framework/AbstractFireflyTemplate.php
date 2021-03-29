@@ -3,9 +3,9 @@
 namespace Dashifen\FireflyTheme\Templates\Framework;
 
 use WP_Post;
+use Timber\Menu as TimberMenu;
 use Timber\Timber;
 use RegexIterator;
-use Timber\Menu as TimberMenu;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use Dashifen\FireflyTheme\Theme;
@@ -258,16 +258,21 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
    */
   private function getMenu(string $menuLocation): array
   {
-    // Timber can give us a set of menu items, but they contain a massive
-    // amount of data that we don't actually need to build our site.  so, we
-    // want to use its data to construct MenuItem repositories instead, and
-    // that's something that array_map can do for us very easily.  typically,
-    // there's no need to specify types for short closures, but this time we
-    // wanted to be as clear as possible about what was going on here.
+    if (has_nav_menu($menuLocation)) {
+  
+      // if WordPress tells us that this location has a menu, then we'll use
+      // the TimberMenu object to get its items.  these items, though, have
+      // much, much more information contained within them than we need for our
+      // purposes.  so, we'll use array_map to convert TimberMenuItems into our
+      // own object as follows.
+  
+      return array_map(
+        fn(TimberMenuItem $item) => new MenuItem($item),
+        (new TimberMenu($menuLocation))->get_items()
+      );
+    }
     
-    return sizeof(($items = (new TimberMenu($menuLocation))->get_items())) > 0
-      ? array_map(fn(TimberMenuItem $item) => new MenuItem($item), $items)
-      : [];
+    return [];
   }
   
   /**
@@ -407,7 +412,7 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
       
       set_transient('firefly-events', $events, 3600);
     }
-  
+    
     return $events;
   }
   
