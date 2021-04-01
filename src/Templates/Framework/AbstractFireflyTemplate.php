@@ -3,9 +3,9 @@
 namespace Dashifen\FireflyTheme\Templates\Framework;
 
 use WP_Post;
-use Timber\Menu as TimberMenu;
 use Timber\Timber;
 use RegexIterator;
+use Timber\Menu as TimberMenu;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use Dashifen\FireflyTheme\Theme;
@@ -198,6 +198,7 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
    * Returns an array of data that's used throughout the site.
    *
    * @return array
+   * @throws FireflyTemplateException
    * @throws HandlerException
    * @throws RepositoryException
    * @throws TransformerException
@@ -206,6 +207,7 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
   {
     return [
       'year'    => date('Y'),
+      'twig'    => basename($this->getTwig(), '.twig'),
       'site'    => [
         'url'    => home_url(),
         'title'  => 'The Firefly House',
@@ -259,13 +261,13 @@ abstract class AbstractFireflyTemplate extends AbstractTemplate
   private function getMenu(string $menuLocation): array
   {
     if (has_nav_menu($menuLocation)) {
-  
+      
       // if WordPress tells us that this location has a menu, then we'll use
       // the TimberMenu object to get its items.  these items, though, have
       // much, much more information contained within them than we need for our
       // purposes.  so, we'll use array_map to convert TimberMenuItems into our
       // own object as follows.
-  
+      
       return array_map(
         fn(TimberMenuItem $item) => new MenuItem($item),
         (new TimberMenu($menuLocation))->get_items()
